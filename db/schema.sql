@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS squad_up_db;
+
+CREATE DATABASE squad_up_db;
