@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+}
+
+/* NAVIGATION BAR */
+.nav-bar {
+  width: 100%;
+  background-color: white;
+  height: 4rem;
+  box-shadow: 0.25px 0.25px 5px black;
+  padding-top: 10px;
+}
+
+.nav-bar a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-link-container {
+  float: right;
+}
+
+.nav-link {
+  display: inline-block;
+  padding: 5px 25px 5px 0px;
+}
+
+.nav-link h2 {
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.nav-link h2:hover {
+  background-color: black;
+  color: white;
+}
+
+.logo {
+  margin: 0 0 0 3em;
+  width: fit-content;
+}
+
+label.hamburger {
+  display: block;
+  background: #fff;
+  width: 40px;
+  height: 60px;
+  position: relative;
+  cursor: pointer;
+}
+
+input#hamburger {
+  display: none;
+}
+
+.line {
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: #000;
+  transition: 0.5s;
+}
+.line:nth-child(1) {
+  top: 12px;
+}
+.line:nth-child(2) {
+  top: 24px;
+}
+.line:nth-child(3) {
+  top: 36px;
+}
+
+#hamburger:checked + .hamburger .line:nth-child(1) {
+  transform: translateY(12px) rotate(-45deg);
+}
+
+#hamburger:checked + .hamburger .line:nth-child(2) {
+  opacity: 0;
+}
+
+#hamburger:checked + .hamburger .line:nth-child(3) {
+  transform: translateY(-12px) rotate(45deg);
+}
+
+.hamburger-postioner {
+  float: right;
+  margin-right: 30px;
+  display: none;
+}
+
+.mobile-nav {
+  width: 100%;
+  box-shadow: 0.25px 0.25px 5px black;
+  z-index: 100;
+  position: absolute;
+  background-color: white;
+  display: none;
+}
+
+.mobile-links {
+  text-decoration: none;
+  color: black;
+}
+
+.mobile-link-text {
+  margin-left: 40px;
+  padding: 5px;
+}
+
+@media only screen and (max-width: 968px) {
+  .nav-link-container {
+    display: none;
+  }
+  .hamburger-postioner {
+    display: unset;
+  }
+
+  .mobile-nav {
+    display: block;
+    width: 100%;
+    box-shadow: 0.25px 0.25px 5px black;
+  }
+}
