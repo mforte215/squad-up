@@ -57,11 +57,11 @@ router.put('/:id', async (req, res) => {
         const postId = req.params.id;
         const updatePost = await Post.update({...req.body},
             {
-                Where: { id: postId, user_id: 1 },
+                where: { id: postId, user_id: 1 },
             }
         );
         //Check if post was found and updated
-        if (updatedPost[0] === 0) {
+        if (updatePost [0] === 0) {
             res.status(404).json({ message: 'No post found with this id'})
         }
 

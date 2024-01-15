@@ -5,7 +5,7 @@ const userData = require('./seeds/userData.json')
 const postData = require('./seeds/postData.json')
 const commentData = require('./seeds/commentData.json')
 
-//Seed funciton
+//Seed function
 const seedDatabase = async () => {
     //sync with database dropping exsiting tables
     await sequelize.sync({ force: true });
@@ -23,15 +23,6 @@ const seedDatabase = async () => {
     const comments = await Comment.bulkCreate(commentData, {
         returning: true,
     });
-
-    //Loop through each post
-    for (const post of posts) {
-       
-        await Post.create({
-            ...post,
-            user_id: users[Math.floor(Math.random() * users.length)].id,
-        });
-    }
 
     // exit the process 
     process.exit(0);
