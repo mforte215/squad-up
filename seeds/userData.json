@@ -1,11 +1,34 @@
 [
-    {
-      "id": 1,
-      "email": "This is a test, this is only a test",
-      "first_name": "Fred",
-      "last_name": "Smith",
-      "location": "Space",
-      "bio": "I like things",
-      "password": "password12345"
-    }
+  {
+    "email": "fred.smith@gmail.com",
+    "firstName": "Fred",
+    "lastName": "Smith",
+    "location": "Space",
+    "bio": "I like things",
+    "password": "password12345"
+  },
+  {
+    "email": "john.johnson@gmail.com",
+    "firstName": "john",
+    "lastName": "Johnson",
+    "location": "Space",
+    "bio": "I like things",
+    "password": "password12345"
+  },
+  {
+    "email": "bruce.wayne@wayneenterprises.com",
+    "firstName": "Bruce",
+    "lastName": "Wayne",
+    "location": "Gotham",
+    "bio": "Big splunker",
+    "password": "password12345"
+  },
+  {
+    "email": "jim.gordan@gothampd.gov",
+    "firstName": "Jim",
+    "lastName": "Gordan",
+    "location": "Gotham",
+    "bio": "A hard-working and honest public servant",
+    "password": "password12345"
+  }
 ]

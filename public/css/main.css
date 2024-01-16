@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto+Mono&display=swap");
+
 * {
   margin: 0;
 }
@@ -9,6 +11,7 @@
   height: 4rem;
   box-shadow: 0.25px 0.25px 5px black;
   padding-top: 10px;
+  font-family: "Permanent Marker", cursive;
 }
 
 .nav-bar a {
@@ -100,11 +103,41 @@ input#hamburger {
 .mobile-links {
   text-decoration: none;
   color: black;
+  font-family: "Permanent Marker", cursive;
 }
 
 .mobile-link-text {
   margin-left: 40px;
   padding: 5px;
+}
+
+#logout-btn {
+  cursor: pointer;
+}
+
+/* Login Page */
+.login-container {
+  width: 40%;
+  margin: auto;
+  padding: 5% 0 5% 0;
+  margin-top: 5%;
+  text-align: center;
+  box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 12px;
+}
+
+.form-control {
+  margin-bottom: 4%;
+  font-size: 2em;
+}
+
+.form-control input {
+  font-size: 1.5em;
+  width: 80%;
+}
+
+.form-control a {
+  color: black;
 }
 
 @media only screen and (max-width: 968px) {

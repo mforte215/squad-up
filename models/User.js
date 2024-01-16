@@ -7,6 +7,10 @@ class User extends Model {
     checkPassword(loginPassword) {
         return bcrypt.compareSync(loginPassword, this.password);
     }
+
+    getFullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
 }
 
 
@@ -54,7 +58,7 @@ User.init(
     hooks: {
         async beforeCreate(newUserData) {
 
-            newUserData.password = await bcrypt.hash(newUserData.password);
+            newUserData.password = await bcrypt.hash(newUserData.password, 10);
             return newUserData;
         }
     },

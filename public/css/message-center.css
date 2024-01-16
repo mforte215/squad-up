@@ -1,0 +1,54 @@
+.message-center-main {
+  display: flex;
+  margin-top: 5%;
+  font-family: "Roboto Mono", monospace;
+}
+
+.message-list-section {
+  display: block;
+  width: 30%;
+  padding-left: 3%;
+  font-family: "Roboto Mono", monospace;
+}
+
+#message-section {
+  display: block;
+  width: 70%;
+  padding-left: 5%;
+}
+
+.conversation-tile {
+  margin: 2% 0 2% 0;
+  box-shadow: 0.25px 0.25px 5px black;
+  padding: 25px;
+  border-radius: 16px;
+}
+
+.latest-message-convesation-tile {
+  padding: 8px 5px 5px 5px;
+}
+
+.message-tile {
+  padding: 10px;
+  margin: 5% 0 0 0;
+}
+
+.message-body-tile {
+  font-size: x-large;
+}
+
+.new-message-input-txt {
+  margin: 2% 2% 0 0;
+  width: 75%;
+  height: 3em;
+}
+
+.new-message-btn {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid black;
+}
+
+.new-message-button {
+  margin: 5% 0 0 5%;
+}

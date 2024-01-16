@@ -1,0 +1,18 @@
+[
+  {
+    "userOne": "1",
+    "userTwo": "2"
+  },
+  {
+    "userOne": "1",
+    "userTwo": "3"
+  },
+  {
+    "userOne": "1",
+    "userTwo": "4"
+  },
+  {
+    "userOne": "2",
+    "userTwo": "3"
+  }
+]
