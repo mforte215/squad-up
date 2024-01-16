@@ -1,7 +1,7 @@
 [
     {
       "id": 1,
-      "email": "This is a test, this is only a test",
+      "email": "fred@email.com",
       "first_name": "Fred",
       "last_name": "Smith",
       "location": "Space",

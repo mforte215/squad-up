@@ -1,6 +1,6 @@
 //Import sequelize and models
 const sequelize = require('../config/connection')
-const { User, Post, Comment } = require('../models')
+const { User, Post, Comment, Directory } = require('../models')
 const userData = require('./seeds/userData.json')
 const postData = require('./seeds/postData.json')
 const commentData = require('./seeds/commentData.json')
@@ -21,6 +21,10 @@ const seedDatabase = async () => {
     });
     // Seed comments and return an array of created comments
     const comments = await Comment.bulkCreate(commentData, {
+        returning: true,
+    });
+     // Seed comments and return an array of created comments
+    const person = await Directory.bulkCreate(userData, {
         returning: true,
     });
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory</title>
+</head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .person {
+            width: 45%;
+            margin: 10px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 50%;
+        }
+    </style>
+
+<body>
+    {{#each persons as |person|}}
+        <a href="/directory/{{id}}">
+            <div class="person">
+                <img src="{{photo}}" alt="{{first_name}} {{last_name}}">
+                <h2>{{first_name}} {{last_name}}</h2>
+                <p><strong>Email:</strong> {{email}}</p>
+                <p><strong>Location:</strong> {{location}}</p>
+                <p><strong>Bio:</strong> {{bio}}</p>
+            </div>
+        </a>
+    {{/each}}
+</body>
+
+</html>
