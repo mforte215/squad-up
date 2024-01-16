@@ -3,7 +3,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Squad Up</title>
-    <link rel="stylesheet" href="/css/main.css"
+    <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/message-center.css">
   </head>
   <body>
     <header>
@@ -15,6 +16,7 @@
             </a>
             <div class="nav-link-container">
                 <a href="/">
+                {{#if logged_in}}
                     <div class="nav-link">
                         <h2>Directory</h2>
                     </div>
@@ -24,29 +26,34 @@
                         <h2>Resume Builder</h2>
                     </div>
                 </a>
-                <a href="/">
+                <a href="/message-center">
                     <div class="nav-link">
                         <h2>Message Center</h2>
                     </div>
                 </a>
+
                 <a href="/">
                     <div class="nav-link">
                         <h2>Account</h2>
                     </div>
                 </a>
-
                 <a id="logout-btn">
                     <div class=" nav-link">
                         <h2>Logout</h2>
                     </div>
                 </a>
-
-                <a href="/">
+                {{else}}
+                <a href="/login">
                     <div class=" nav-link">
                         <h2>Login</h2>
                     </div>
                 </a>
-
+                <a href="/sign-up">
+                    <div class=" nav-link">
+                        <h2>sign up</h2>
+                    </div>
+                </a>
+                {{/if}}
             </div>
             <div class="hamburger-postioner">
                 <input type="checkbox" id="hamburger">

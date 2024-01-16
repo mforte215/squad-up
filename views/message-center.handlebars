@@ -1,0 +1,25 @@
+<main>
+  <div class="message-center-main">
+    <section class="message-list-section">
+      <h2>Latest Messages</h2>
+      {{#each conversations as |conversation|}}
+        <div
+          id="conversation-{{id}}"
+          onclick="loadMessagesHandler({{id}}, '{{conversation.otherPerson}}')"
+          class="conversation-tile"
+        >
+          <h3 id="other-person">{{conversation.otherPerson}}</h3>
+
+          <p
+            class="latest-message-convesation-tile"
+          >{{conversation.latest_message.text}}</p>
+
+        </div>
+      {{/each}}
+    </section>
+    <section id="message-section">
+
+    </section>
+  </div>
+</main>
+<script src="./js/messageCenter.js"></script>

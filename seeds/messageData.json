@@ -1,0 +1,12 @@
+[
+  {
+    "conversationId": "1",
+    "text": "first message",
+    "user_id": "1"
+  },
+  {
+    "conversationId": "1",
+    "text": "Hello World!",
+    "user_id": "1"
+  }
+]

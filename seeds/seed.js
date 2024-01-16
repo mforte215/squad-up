@@ -1,28 +1,35 @@
 //Import sequelize and models
 const sequelize = require('../config/connection')
-const { User, Post, Comment } = require('../models')
-const userData = require('./seeds/userData.json')
-const postData = require('./seeds/postData.json')
-const commentData = require('./seeds/commentData.json')
+const {User, Message, Conversation} = require('../models/index')
+const userData = require('./userData.json');
+const conversationData = require('./conversationData.json');
+const messageData = require('./messageData.json');
 
-//Seed function
+//Seed funciton
 const seedDatabase = async () => {
     //sync with database dropping exsiting tables
-    await sequelize.sync({ force: true });
+    await sequelize.sync({force: true});
 
     // Seed users and return an array of created users
     const users = await User.bulkCreate(userData, {
         individualHooks: true,
         returning: true,
     });
-    // Seed posts and return an array of created posts
-    const posts = await Post.bulkCreate(postData, {
+
+    //Seed conversations
+    const conversations = await Conversation.bulkCreate(conversationData, {
+        individualHooks: true,
         returning: true,
     });
-    // Seed comments and return an array of created comments
-    const comments = await Comment.bulkCreate(commentData, {
+
+
+    //Seed messages
+    const messages = await Message.bulkCreate(messageData, {
+        individualHooks: true,
         returning: true,
     });
+
+
 
     // exit the process 
     process.exit(0);

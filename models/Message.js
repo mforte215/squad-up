@@ -14,19 +14,12 @@ Message.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        sender: {
+        conversationId: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'user',
-                key: 'id',
-            },
-        },
-        reciever: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'user',
-                key: 'id',
-            },
+                model: 'conversation',
+                key: 'id'
+            }
         },
         text: {
             type: DataTypes.STRING,
@@ -40,15 +33,8 @@ Message.init(
 
 
     }, {
-    hooks: {
-        async beforeCreate(newUserData) {
-
-            newUserData.password = await bcrypt.hash(newUserData.password);
-            return newUserData;
-        }
-    },
     sequelize,
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'message'
