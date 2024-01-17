@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto+Mono&display=swap");
+.post-tile {
+  width: 40%;
+  margin: 5% 30% 0 30%;
+  box-shadow: 0.25px 0.25px 5px black;
+  padding: 35px;
+  border-radius: 18px;
+  font-family: "Roboto Mono", monospace;
+}
+
+.post-tile-header-image {
+  width: 100%;
+}

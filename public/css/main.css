@@ -5,7 +5,7 @@
 }
 
 /* NAVIGATION BAR */
-.nav-bar {
+.custom-nav-bar {
   width: 100%;
   background-color: white;
   height: 4rem;
@@ -14,7 +14,7 @@
   font-family: "Permanent Marker", cursive;
 }
 
-.nav-bar a {
+.custom-nav-bar a {
   text-decoration: none;
   color: black;
 }
@@ -23,17 +23,17 @@
   float: right;
 }
 
-.nav-link {
+.custom-nav-link {
   display: inline-block;
   padding: 5px 25px 5px 0px;
 }
 
-.nav-link h2 {
+.custom-nav-link h2 {
   padding: 4px;
   border-radius: 8px;
 }
 
-.nav-link h2:hover {
+.custom-nav-link h2:hover {
   background-color: black;
   color: white;
 }
@@ -47,7 +47,7 @@ label.hamburger {
   display: block;
   background: #fff;
   width: 40px;
-  height: 60px;
+  height: 30px;
   position: relative;
   cursor: pointer;
 }
@@ -124,20 +124,42 @@ input#hamburger {
   text-align: center;
   box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.75);
   border-radius: 12px;
+  background-color: grey;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  font-family: "Permanent Marker", cursive;
 }
 
-.form-control {
+.custom-form-control {
   margin-bottom: 4%;
   font-size: 2em;
 }
 
-.form-control input {
+.custom-form-control input {
   font-size: 1.5em;
   width: 80%;
 }
 
-.form-control a {
+.custom-form-control a {
   color: black;
+}
+
+#login-btn-pg {
+  background-color: black;
+  color: white;
+  font-family: "Permanent Marker", cursive;
+  padding: 10px 30px 10px 30px;
+  width: fit-content;
+  border-radius: 20px;
+}
+
+#sign-up-btn-pg {
+  background-color: black;
+  color: white;
+  font-family: "Permanent Marker", cursive;
+  padding: 10px 30px 10px 30px;
+  width: fit-content;
+  border-radius: 20px;
 }
 
 @media only screen and (max-width: 968px) {

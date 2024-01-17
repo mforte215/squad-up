@@ -70,12 +70,18 @@ router.post('/', async (req, res) => {
     const userCreate = await User.create(req.body);
 
     //if the user is successfully created, log them in, and send a 200 response
+    console.log("LOGGING NEWLY CREATED USER");
+    console.log(userCreate);
+    //deserialize the db response
+    const newUser = userCreate.get({plain: true});
     req.session.save(() => {
-      req.session.user_id = userCreate.id;
-      req.session.email = userCreate.email;
+      req.session.user_id = newUser.id;
+      req.session.email = newUser.email;
       req.session.logged_in = true;
-    });
-    res.status(200).json(userCreate);
+
+      res.json({user: newUser, message: 'You are now logged in!'});
+    })
+
   } catch (err) {
     res.status(400).json(err);
   }

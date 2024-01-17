@@ -29,7 +29,7 @@ const signUpPostHandler = async (event) => {
         })
 
         if (responseData.ok) {
-            document.location.replace('/login')
+            document.location.replace('/')
         } else {
             alert(responseData);
         }

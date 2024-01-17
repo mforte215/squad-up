@@ -112,7 +112,7 @@ const onMenuToggle = () => {
             navContainer.append(signupLink);
         }
         //find the navbar and append below
-        const navBar = document.querySelector('.nav-bar');
+        const navBar = document.querySelector('.custom-nav-bar');
         navBar.after(navContainer);
     }
     else {

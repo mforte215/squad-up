@@ -1,0 +1,14 @@
+.poster-container {
+  width: 80%;
+  margin: 0 10% 0 10%;
+  font-family: "Roboto Mono", monospace;
+}
+
+.post-header {
+  width: 100%;
+  margin-top: 2%;
+}
+
+.post-meta {
+  margin: 2% 0;
+}
