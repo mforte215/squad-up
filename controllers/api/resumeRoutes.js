@@ -8,15 +8,26 @@ function buildResume(req) {
     return new Promise((resolve) => {
         //#USE THE BELOW, PDF CREATION WORKS
         // Create a document
-        const doc = new PDFDocument();
+        const doc = new PDFDocument({size: 'LETTER'});
 
         // Embed a font, set the font size, and render some text
         doc.pipe(fs.createWriteStream('./public/userResume.pdf'));
 
         doc
         .fontSize(25)
-        .text('Some text with an embedded font!', 100, 100);
+        .text(`${req.body.firstName} ${req.body.lastName}`, 230, 50);
 
+        doc
+        .fontSize(10)
+        .text(`${req.body.phone}`, 230, 80)
+        
+        doc
+        .fillColor('blue')
+        .text('Here is a link!', 100, 200)
+        .underline(100, 200, 160, 27, { color: '#0000FF' })
+        .link(100, 100, 160, 27, 'http://google.com/');
+
+        
         // Add an image, constrain it to a given size, and center it vertically and horizontally
         // doc.image('./Public/Image_test/Coffee-Cat.png', {
         // fit: [250, 300],
@@ -24,10 +35,7 @@ function buildResume(req) {
         // valign: 'center'
         // });
         // Add another page
-        doc
-        .addPage()
-        .fontSize(25)
-        .text(`${req.body.firstName}`, 100, 100);
+
 
         // Apply some transforms and render an SVG path with the 'even-odd' fill rule
         doc
@@ -38,12 +46,8 @@ function buildResume(req) {
         .restore();
 
         // Add some text with annotations
-        doc
-        .addPage()
-        .fillColor('blue')
-        .text('Here is a link!', 100, 100)
-        .underline(100, 100, 160, 27, { color: '#0000FF' })
-        .link(100, 100, 160, 27, 'http://google.com/');
+
+
         // Finalize PDF file
         doc.end();
         //Create empty array to convert PDF document
