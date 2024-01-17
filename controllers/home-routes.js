@@ -47,6 +47,20 @@ router.get('/login', async (req, res) => {
     }
 });
 
+//GET Resume Builder
+router.get('/resume-builder', async(req, res) => {
+    try {
+        if (!req.session.logged_in) {
+            res.redirect('/')
+        }
+        res.render('resume',{});
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json(error);
+    }
+});
+
 router.get('/sign-up', async (req, res) => {
 
     try {
