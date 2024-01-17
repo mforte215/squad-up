@@ -1,9 +1,10 @@
 //Import sequelize and models
 const sequelize = require('../config/connection')
-const {User, Message, Conversation} = require('../models/index')
+const {User, Message, Conversation, Post} = require('../models/index')
 const userData = require('./userData.json');
 const conversationData = require('./conversationData.json');
 const messageData = require('./messageData.json');
+const postData = require('./postData.json');
 
 //Seed funciton
 const seedDatabase = async () => {
@@ -30,6 +31,10 @@ const seedDatabase = async () => {
     });
 
 
+    const posts = await Post.bulkCreate(postData, {
+        individualHooks: true,
+        returning: true,
+    });
 
     // exit the process 
     process.exit(0);

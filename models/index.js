@@ -1,6 +1,7 @@
 const User = require('./User');
 const Conversation = require('./Conversation');
 const Message = require('./Message');
+const Post = require('./Post');
 
 
 
@@ -40,4 +41,5 @@ module.exports = {
     User: User,
     Message: Message,
     Conversation: Conversation,
+    Post: Post,
 }

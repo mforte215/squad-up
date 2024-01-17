@@ -53,6 +53,9 @@ router.get('/:id', async (req, res) => {
             where: {
                 conversation_id: req.params.id,
             },
+            order: [
+                ['date_created', 'DESC']
+            ]
         });
 
         if (!messages) {
@@ -63,11 +66,9 @@ router.get('/:id', async (req, res) => {
         let otherId;
 
         if (req.session.user_id === conversationData[0].userOne) {
-            console.log("I am user one");
             otherId = conversationData[0].userTwo;
         }
         else {
-            console.log("I am user two");
             otherId = conversationData[0].userOne;
         }
         //
@@ -77,7 +78,6 @@ router.get('/:id', async (req, res) => {
                 console.log(otherUser);
                 const OtherUsername = otherUser.getFullName(); */
 
-        console.log("LOGGING MESSAGES DATA");
         for (let i = 0; i < messages.length; i++) {
             console.log('*****************************');
             console.log("MESSAGE " + i);

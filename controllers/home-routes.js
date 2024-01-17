@@ -1,16 +1,35 @@
 const router = require('express').Router();
-const { User, Conversation, Message } = require('../models/');
-const { Op, fn } = require("sequelize");
+const {User, Conversation, Message, Post} = require('../models/');
+const {Op, fn} = require("sequelize");
 
 //GET the homepage
 router.get('/', async (req, res) => {
     try {
+        //get the latest posts 
+        const latestPosts = await Post.findAll({
+            attributes: {exclude: ['content']},
+            order: [
+                ['date_created', 'DESC']
+            ]
+        });
+
+        console.log("LOGGING LATEST POSTS");
+
+
+        //deserialize posts
+        const deserializedPosts = []
+        for (let i = 0; i < latestPosts.length; i++) {
+            let post = latestPosts[i].get({plain: true});
+            deserializedPosts.push(post);
+        }
+        console.log(deserializedPosts);
 
         if (req.session.logged_in) {
             res.render('homepage', {
                 logged_in: req.session.logged_in,
                 email: req.session.email,
                 user_id: req.session.user_id,
+                posts: deserializedPosts,
             })
         }
         else {
@@ -18,6 +37,7 @@ router.get('/', async (req, res) => {
                 logged_in: false,
                 email: null,
                 user_id: null,
+                posts: deserializedPosts,
             })
         }
 
@@ -48,12 +68,12 @@ router.get('/login', async (req, res) => {
 });
 
 //GET Resume Builder
-router.get('/resume-builder', async(req, res) => {
+router.get('/resume-builder', async (req, res) => {
     try {
         if (!req.session.logged_in) {
             res.redirect('/')
         }
-        res.render('resume',{});
+        res.render('resume', {});
     }
     catch (error) {
         console.error(error);
@@ -90,13 +110,13 @@ router.get('/message-center', async (req, res) => {
         //get the conversations associated with the user
         const foundConversations = await Conversation.findAll({
             where: {
-                [Op.or]: [{ userOne: req.session.user_id }, { userTwo: req.session.user_id }]
+                [Op.or]: [{userOne: req.session.user_id}, {userTwo: req.session.user_id}]
             }
         });
 
         //loop through conversations and deserialize the found data;
         const conversations = foundConversations.map((convo) => {
-            return convo.get({ plain: true });
+            return convo.get({plain: true});
         });
 
         myConversations = [];
@@ -124,11 +144,11 @@ router.get('/message-center', async (req, res) => {
         //Get all the messages for the conversations
         for (let j = 0; j < myConversations.length; j++) {
             const foundMessages = await Message.findAll({
-                include: [{ model: User, as: 'sender' }, { model: Conversation }],
+                include: [{model: User, as: 'sender'}, {model: Conversation}],
                 where: {
                     conversationId: myConversations[j].id
                 },
-                attributes: { exclude: ['sender.password'] }
+                attributes: {exclude: ['sender.password']}
             });
 
 
@@ -136,7 +156,7 @@ router.get('/message-center', async (req, res) => {
             const serializedMessages = [];
             for (let l = 0; l < foundMessages.length; l++) {
                 //serialize each
-                const serializedOne = foundMessages[l].get({ plain: true });
+                const serializedOne = foundMessages[l].get({plain: true});
                 serializedMessages.push(serializedOne);
             };
             myConversations[j].latest_message = serializedMessages[0];
@@ -170,9 +190,9 @@ router.get('/directory', async (req, res) => {
                 },
             },
         });
-        const persons = directoryData.map((person) => person.get({ plain: true }));
+        const persons = directoryData.map((person) => person.get({plain: true}));
 
-        res.render('directory', { persons });
+        res.render('directory', {persons});
     } catch (err) {
         res.status(500).json(err);
     }
@@ -185,11 +205,26 @@ router.get('/directory/:id', async (req, res) => {
         const paramId = req.params.id;
         const directoryData = await User.findByPk(paramId);
         console.log('directoryData:', directoryData);
-        const person = directoryData.get({ plain: true });
+        const person = directoryData.get({plain: true});
         console.log(person)
         res.render('profile', person);
     } catch (err) {
         res.status(500).json(err);
     }
 });
+
+
+router.get('/post/:id', async (req, res) => {
+
+    //get the post from the req param
+    const foundPost = await Post.findByPk(req.params.id);
+
+    //deserialize and send
+    const deserializedPost = foundPost.get({plain: true});
+    res.render('post', {
+        ...deserializedPost,
+        logged_in: req.session.logged_in,
+    })
+});
+
 module.exports = router;

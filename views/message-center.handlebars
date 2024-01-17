@@ -1,7 +1,10 @@
 <main>
   <div class="message-center-main">
     <section class="message-list-section">
-      <h2>Latest Messages</h2>
+      <span><h2>Latest Messages</h2><button
+          class="new-modal-btn"
+          onclick="openModal()"
+        >New Message</button></span>
       {{#each conversations as |conversation|}}
         <div
           id="conversation-{{id}}"

@@ -21,7 +21,7 @@ const loginHandler = async (event) => {
 
         if (responseData.ok) {
             // If successful, redirect the browser to the profile page
-            document.location.replace('/message-center')
+            document.location.replace('/')
         } else {
             alert(responseData.statusText);
         }
