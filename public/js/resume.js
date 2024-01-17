@@ -17,7 +17,7 @@ send.addEventListener('click', function(e) {
     }
     let stringThis = JSON.stringify(resumeForm)
     let parseThise = JSON.parse(stringThis)
-    fetch('/', {
+    fetch('/api/resume', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,24 +25,5 @@ send.addEventListener('click', function(e) {
         body: stringThis,
       })
     e.preventDefault()
-    pdfButton()
 })
 
-function pdfButton() {
-  // create a new button
-  const newDiv = document.createElement("a");
-  // and give it some content
-  newDiv.textContent ="Get My PDF"
-
-  newDiv.setAttribute('class', 'border')
-  newDiv.setAttribute('href', '/Public/userResume.pdf')
-  newDiv.setAttribute('download', 'userResume.pdf')
-
-  pdfButtonEl.appendChild(newDiv);
-}
-
-pdfButtonEl.addEventListener('click', () => {
-  fetch('/userPDF', {
-    method: 'GET',
-  })
-})
