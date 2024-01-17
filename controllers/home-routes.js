@@ -192,7 +192,8 @@ router.get('/directory', async (req, res) => {
         });
         const persons = directoryData.map((person) => person.get({plain: true}));
 
-        res.render('directory', {persons});
+        res.render('directory', { 
+            persons: persons, logged_in: req.session.logged_in });
     } catch (err) {
         res.status(500).json(err);
     }
@@ -207,7 +208,8 @@ router.get('/directory/:id', async (req, res) => {
         console.log('directoryData:', directoryData);
         const person = directoryData.get({plain: true});
         console.log(person)
-        res.render('profile', person);
+        res.render('profile', { 
+            person: person, logged_in: req.session.logged_in } );
     } catch (err) {
         res.status(500).json(err);
     }
@@ -226,5 +228,16 @@ router.get('/post/:id', async (req, res) => {
         logged_in: req.session.logged_in,
     })
 });
+
+router.get('/account', (req, res) => {
+    try {
+        res.render('account', {logged_in: req.session.logged_in});
+    } catch (err) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' })
+    }
+});
+
+
 
 module.exports = router;
