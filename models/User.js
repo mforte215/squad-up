@@ -22,6 +22,11 @@ User.init(
             primaryKey: true,
             autoIncrement: true,
         },
+        photo_url: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue: "https://i.imgur.com/KC98Qja.jpg",
+        },
         email: {
             type: DataTypes.STRING,
             allowNull: false,

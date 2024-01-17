@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const {User, Conversation, Message} = require('../models/');
-const {Op, fn} = require("sequelize");
+const { User, Conversation, Message } = require('../models/');
+const { Op, fn } = require("sequelize");
 
 //GET the homepage
 router.get('/', async (req, res) => {
@@ -76,13 +76,13 @@ router.get('/message-center', async (req, res) => {
         //get the conversations associated with the user
         const foundConversations = await Conversation.findAll({
             where: {
-                [Op.or]: [{userOne: req.session.user_id}, {userTwo: req.session.user_id}]
+                [Op.or]: [{ userOne: req.session.user_id }, { userTwo: req.session.user_id }]
             }
         });
 
         //loop through conversations and deserialize the found data;
         const conversations = foundConversations.map((convo) => {
-            return convo.get({plain: true});
+            return convo.get({ plain: true });
         });
 
         myConversations = [];
@@ -110,11 +110,11 @@ router.get('/message-center', async (req, res) => {
         //Get all the messages for the conversations
         for (let j = 0; j < myConversations.length; j++) {
             const foundMessages = await Message.findAll({
-                include: [{model: User, as: 'sender'}, {model: Conversation}],
+                include: [{ model: User, as: 'sender' }, { model: Conversation }],
                 where: {
                     conversationId: myConversations[j].id
                 },
-                attributes: {exclude: ['sender.password']}
+                attributes: { exclude: ['sender.password'] }
             });
 
 
@@ -122,7 +122,7 @@ router.get('/message-center', async (req, res) => {
             const serializedMessages = [];
             for (let l = 0; l < foundMessages.length; l++) {
                 //serialize each
-                const serializedOne = foundMessages[l].get({plain: true});
+                const serializedOne = foundMessages[l].get({ plain: true });
                 serializedMessages.push(serializedOne);
             };
             myConversations[j].latest_message = serializedMessages[0];
@@ -144,4 +144,38 @@ router.get('/message-center', async (req, res) => {
 
 })
 
+
+router.get('/directory', async (req, res) => {
+    try {
+        console.log('Directory accessed!')
+        const currentUser = req.session.user_id
+        const directoryData = await User.findAll({
+            where: {
+                id: {
+                    [Op.ne]: currentUser,
+                },
+            },
+        });
+        const persons = directoryData.map((person) => person.get({ plain: true }));
+
+        res.render('directory', { persons });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+
+router.get('/directory/:id', async (req, res) => {
+    try {
+        console.log('Directory accessed!')
+        const paramId = req.params.id;
+        const directoryData = await User.findByPk(paramId);
+        console.log('directoryData:', directoryData);
+        const person = directoryData.get({ plain: true });
+        console.log(person)
+        res.render('profile', person);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 module.exports = router;

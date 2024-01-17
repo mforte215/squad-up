@@ -9,7 +9,7 @@
   },
   {
     "email": "john.johnson@gmail.com",
-    "firstName": "john",
+    "firstName": "John",
     "lastName": "Johnson",
     "location": "Space",
     "bio": "I like things",
@@ -20,7 +20,7 @@
     "firstName": "Bruce",
     "lastName": "Wayne",
     "location": "Gotham",
-    "bio": "Big splunker",
+    "bio": "Big spelunker",
     "password": "password12345"
   },
   {
@@ -29,6 +29,14 @@
     "lastName": "Gordan",
     "location": "Gotham",
     "bio": "A hard-working and honest public servant",
+    "password": "password12345"
+  },
+  {
+    "email": "robin@gothampd.gov",
+    "firstName": "Richard",
+    "lastName": "Grayson",
+    "location": "Gotham",
+    "bio": "More than just a sidekick",
     "password": "password12345"
   }
 ]
