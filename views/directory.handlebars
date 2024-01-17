@@ -1,0 +1,16 @@
+
+<div class="directory-card">
+    {{#each persons as |person|}}
+        <a href="/directory/{{id}}">
+            <div class="person">
+                <img src={{photo_url}} class= "profile-picture" alt="{{firstName}} {{lastName}}">
+                <div class="info">
+                    <h2>{{firstName}} {{lastName}}</h2>
+                    <p><strong>Email:</strong> {{email}}</p>
+                    <p><strong>Location:</strong> {{location}}</p>
+                    <p><strong>Bio:</strong> {{bio}}</p>
+                </div>
+            </div>
+        </a>
+    {{/each}}
+</div>
