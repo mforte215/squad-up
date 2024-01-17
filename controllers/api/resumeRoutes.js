@@ -1,16 +1,18 @@
 const router = require('express').Router();
 const PDFDocument = require('pdfkit');
 const blobStream = require('blob-stream');
-const fs = require('file-saver')
+const fs = require('fs')
 
 //#Resume Building Format
-function buildResume() {
+function buildResume(req) {
     return new Promise((resolve) => {
         //#USE THE BELOW, PDF CREATION WORKS
         // Create a document
         const doc = new PDFDocument();
 
         // Embed a font, set the font size, and render some text
+        doc.pipe(fs.createWriteStream('./public/userResume.pdf'));
+
         doc
         .fontSize(25)
         .text('Some text with an embedded font!', 100, 100);
@@ -25,15 +27,7 @@ function buildResume() {
         doc
         .addPage()
         .fontSize(25)
-        .text('Here is some vector graphics...', 100, 100);
-
-        // Draw a triangle
-        doc
-        .save()
-        .moveTo(100, 150)
-        .lineTo(100, 250)
-        .lineTo(200, 250)
-        .fill('#FF3300');
+        .text(`${req.body.firstName}`, 100, 100);
 
         // Apply some transforms and render an SVG path with the 'even-odd' fill rule
         doc
@@ -60,6 +54,7 @@ function buildResume() {
         doc.on('end', () => {
             let docData = new Uint8Array(Buffer.concat(buffers))
             resolve(docData)
+            
         })
     })
 }
@@ -67,8 +62,10 @@ function buildResume() {
 // POST request     
 router.post('/', async (req, res) => {
     console.log(`${req.body.firstName} ${req.body.lastName}`)
-    let doc = await buildResume()
+    let doc = await buildResume(req)
     let docBlob = new Blob([doc], {type:'application/pdf'})
+    console.log(docBlob)
+    res.status(200).json('DoYouWork')
     //From express trying to send data back to client, then need
     //JS client side to return it
     //NEED TO PROMPT DOWNLOAD FROM THE CLIENT
