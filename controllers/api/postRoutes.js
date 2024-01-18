@@ -38,10 +38,26 @@ router.get('/:id', async (req, res) => {
 //Create a new post for user
 router.post('/', async (req, res) => {
     try {
+
+        if (!req.session.logged_in) {
+            res.redirect('/');
+        }
+        console.log("LOG REQUEST ON BACKEND");
+        console.log(req.body);
+        const createdPost = {
+
+        }
         const newPost = await Post.create({
-            ...req.body,
-            user_id: 1,
+            title: req.body.title,
+            header_image: req.body.image,
+            teaser: req.body.teaser,
+            content: req.body.content,
+            user_id: req.session.user_id,
         });
+
+        console.log("LOGGING DB response");
+        console.log(newPost);
+
 
         res.status(200).json(newPost);
     } catch (err) {

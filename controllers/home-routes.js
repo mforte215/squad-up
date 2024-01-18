@@ -2,6 +2,15 @@ const router = require('express').Router();
 const {User, Conversation, Message, Post} = require('../models/');
 const {Op, fn} = require("sequelize");
 
+
+const dateConvert = (date) => {
+
+    const d = new Date(date);
+
+    return `${d.toLocaleDateString()} at ${d.toLocaleTimeString()}`;
+
+}
+
 //GET the homepage
 router.get('/', async (req, res) => {
     try {
@@ -10,16 +19,23 @@ router.get('/', async (req, res) => {
             attributes: {exclude: ['content']},
             order: [
                 ['date_created', 'DESC']
+            ],
+            include: [
+                {
+                    model: User,
+                    attributes: ['firstName', 'lastName']
+                }
             ]
         });
 
         console.log("LOGGING LATEST POSTS");
-
+        console.log(latestPosts);
 
         //deserialize posts
         const deserializedPosts = []
         for (let i = 0; i < latestPosts.length; i++) {
             let post = latestPosts[i].get({plain: true});
+            post.dateCreated = dateConvert(post.dateCreated);
             deserializedPosts.push(post);
         }
         console.log(deserializedPosts);
@@ -28,8 +44,8 @@ router.get('/', async (req, res) => {
             res.render('homepage', {
                 logged_in: req.session.logged_in,
                 email: req.session.email,
-                user_id: req.session.user_id,
                 posts: deserializedPosts,
+                user_id: req.session.user_id
             })
         }
         else {
@@ -38,6 +54,7 @@ router.get('/', async (req, res) => {
                 email: null,
                 user_id: null,
                 posts: deserializedPosts,
+                user_id: req.session.user_id
             })
         }
 
@@ -73,7 +90,10 @@ router.get('/resume-builder', async (req, res) => {
         if (!req.session.logged_in) {
             res.redirect('/')
         }
-        res.render('resume', {});
+        res.render('resume', {
+            user_id: req.session.user_id,
+            logged_in: req.session.logged_in,
+        });
     }
     catch (error) {
         console.error(error);
@@ -165,6 +185,7 @@ router.get('/message-center', async (req, res) => {
         res.render('message-center', {
             conversations: myConversations,
             logged_in: req.session.logged_in,
+            user_id: req.session.user_id,
         })
 
 
@@ -192,7 +213,9 @@ router.get('/directory', async (req, res) => {
         });
         const persons = directoryData.map((person) => person.get({plain: true}));
 
-        res.render('directory', {persons});
+        res.render('directory', {
+            persons: persons, logged_in: req.session.logged_in
+        });
     } catch (err) {
         res.status(500).json(err);
     }
@@ -201,17 +224,111 @@ router.get('/directory', async (req, res) => {
 
 router.get('/directory/:id', async (req, res) => {
     try {
+        //check if the user is checking their own Id or someone elses;
+        const isOwner = false;
+        if (req.params.id === req.session.user_id) {
+            isOwner = true;
+        }
+        console.log("Is owner:")
+        console.log(isOwner);
         console.log('Directory accessed!')
         const paramId = req.params.id;
         const directoryData = await User.findByPk(paramId);
         console.log('directoryData:', directoryData);
         const person = directoryData.get({plain: true});
         console.log(person)
-        res.render('profile', person);
+
+        //get all the posts by the user
+        const foundPosts = await Post.findAll({
+            where: {
+                user_id: paramId
+            }
+        });
+
+        const normalizedPosts = [];
+        for (let i = 0; i < foundPosts.length; i++) {
+            const newPost = foundPosts[i].get({plain: true});
+            normalizedPosts.push(newPost);
+        }
+
+        console.log("Logging Normalized Posts");
+        console.log(normalizedPosts);
+        res.render('profile', {
+            person: person,
+            logged_in: req.session.logged_in,
+            user_id: req.session.user_id,
+        });
     } catch (err) {
         res.status(500).json(err);
     }
 });
+
+router.get('/account', (req, res) => {
+    try {
+        res.render('account', {
+            logged_in: req.session.logged_in,
+            user_id: req.session.user_id,
+        });
+    } catch (err) {
+        console.error(error);
+        res.status(500).json({error: 'Internal Server Error'})
+    }
+});
+
+
+router.get('/post/new', async (req, res) => {
+    try {
+
+
+        if (!req.session.user_id) {
+            res.redirect('/');
+        }
+
+
+        //else render the new post page
+        res.render('new-post', {
+            logged_in: req.session.user_id,
+            user_id: req.session.user_id,
+        });
+
+    } catch (error) {
+
+        res.status(500).json(error);
+
+
+    }
+
+
+});
+
+router.post('/post/new', async (req, res) => {
+    try {
+        //get the request and use it to create a new post
+        console.log("********************************");
+        console.log("Logging request!")
+        console.log(req);
+
+        const newPost = await Post.create({
+
+        })
+
+        //else render the new post page
+        res.render('new-post', {
+            logged_in: req.session.user_id,
+            user_id: req.session.user_id,
+        });
+
+    } catch (error) {
+
+        res.status(500).json(error);
+
+
+    }
+
+
+});
+
+
 
 
 router.get('/post/:id', async (req, res) => {
@@ -220,11 +337,38 @@ router.get('/post/:id', async (req, res) => {
     const foundPost = await Post.findByPk(req.params.id);
 
     //deserialize and send
-    const deserializedPost = foundPost.get({plain: true});
+    const normalizedPost = foundPost.get({plain: true});
+
+    //get the associated user
+
+    const UserResponse = await User.findByPk(normalizedPost.user_id);
+    normalizedPost.dateCreated = dateConvert(normalizedPost.dateCreated);
+    const noramlizedUser = UserResponse.get({plain: true});
+    console.log("LOGGING AUTHOR")
+    console.log(noramlizedUser)
     res.render('post', {
-        ...deserializedPost,
+        ...normalizedPost,
         logged_in: req.session.logged_in,
+        author: `${noramlizedUser.firstName} ${noramlizedUser.lastName}`,
+        user_id: req.session.user_id,
     })
 });
+
+router.get('/account', (req, res) => {
+    try {
+        if (req.session.logged_in) {
+            res.render('account', {logged_in: req.session.logged_in});
+        }
+        else {
+            res.redirect('/');
+        }
+
+    } catch (err) {
+        console.error(error);
+        res.status(500).json({error: 'Internal Server Error'})
+    }
+});
+
+
 
 module.exports = router;

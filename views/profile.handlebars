@@ -1,14 +1,17 @@
-
-<div class="profile-card"> 
-        <a href="/directory/{{id}}">
-            <div class="personal-details">
-                <img src={{photo_url}} class= "profile-image" alt="{{firstName}} {{lastName}}">
-                <div class="info">
-                    <h2>{{firstName}} {{lastName}}</h2>
-                    <p><strong>Email:</strong> {{email}}</p>
-                    <p><strong>Location:</strong> {{location}}</p>
-                    <p><strong>Bio:</strong> {{bio}}</p>
-                </div>
-            </div>
-        </a>
+<div class="profile-card">
+  <a href="/directory/{{person.id}}">
+    <div class="personal-details">
+      <img
+        src={{person.photo_url}}
+        class="profile-image"
+        alt="{{firstName}} {{lastName}}"
+      />
+      <div class="info">
+        <h2>{{firstName}} {{person.lastName}}</h2>
+        <p><strong>Email:</strong> {{person.email}}</p>
+        <p><strong>Location:</strong> {{person.location}}</p>
+        <p><strong>Bio:</strong> {{person.bio}}</p>
+      </div>
+    </div>
+  </a>
 </div>

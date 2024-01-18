@@ -1,14 +1,25 @@
 <main>
-  <div class="post-container">
+  {{#if logged_in}}
+    <div class="user-row-post">
+      <button onclick="loadNewPostHandler()" class="new-post-btn">New Post</button>
+    </div>
+  {{/if}}
+  <div class="post-list-container">
     {{#each posts as |post|}}
       <div class="post-tile">
         <a href="/post/{{post.id}}" class="post-link">
           <div class="post-container">
-            <img class="post-tile-header-image" src="{{post.header_image}}" alt="picture for the article {{post.title}}" >
-            <h2>{{post.title}}</h2>
-            <h3>{{post.teaser}}</h3>
-            <h3>published by {{post.user_id}} at {{post.dateCreated}}</h3>
-          </div>
+            <img
+              class="post-tile-header-image"
+              src="{{post.header_image}}"
+              alt="picture for the article {{post.title}}"
+            />
+            <h2 class="post-tile-title">{{post.title}}</h2>
+            <p class="post-tile-teaser">{{post.teaser}}</p>
+            <p>published by
+              {{post.user.firstName}}
+              {{post.user.lastName}}</h3>
+            <p>on {{post.dateCreated}}</h3>
           </div>
         </a>
       </div>

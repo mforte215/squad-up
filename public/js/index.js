@@ -126,6 +126,14 @@ const onMenuToggle = () => {
 
 
 
+const loadNewPostHandler = () => {
+    event.preventDefault();
+    document.location.replace('/post/new');
+
+}
+
+
+
 
 
 

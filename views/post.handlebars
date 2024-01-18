@@ -1,4 +1,5 @@
 <main class="poster-container">
+
   <img
     class="post-header"
     src="{{header_image}}"
@@ -7,9 +8,10 @@
   <div class="post-meta">
     <h1>{{title}}</h1>
     <h3>{{teaser}}</h3>
-    <h3>by someone at {{dateCreated}} </h3>
+    <h3>by {{author}} at {{dateCreated}} </h3>
   </div>
-  <p>
-    {{content}}
+  <div class="line-breaker"> </div>
+  <p class="post-content-body">
+    {{{content}}}
   </p>
 </main>

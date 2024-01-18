@@ -15,6 +15,10 @@ Message.belongsTo(User, {
     as: 'sender',
 });
 
+Post.belongsTo(User, {
+    foreignKey: 'user_id'
+})
+
 Conversation.hasMany(Message, {
     foreignKey: 'conversation_id',
     onDelete: 'CASCADE',
