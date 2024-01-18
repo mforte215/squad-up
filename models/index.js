@@ -1,7 +1,7 @@
 const User = require('./User');
 const Conversation = require('./Conversation');
 const Message = require('./Message');
-const Post = require('./Post');
+const Post = require('./post');
 
 
 
