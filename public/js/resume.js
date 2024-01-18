@@ -54,7 +54,7 @@ function pdfButton() {
   // and give it some content
   newDiv.textContent ="Get My PDF"
 
-  newDiv.setAttribute('class', 'border')
+  newDiv.setAttribute('class', 'border btn btn-primary btn-lg')
   newDiv.setAttribute('href', '/userResume.pdf')
   
 
