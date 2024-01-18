@@ -70,7 +70,7 @@ router.get('/login', async (req, res) => {
 //GET Resume Builder
 router.get('/resume-builder', async (req, res) => {
     try {
-        if (!req.session.logged_in) {
+        if (req.session.logged_in) {
             res.redirect('/')
         }
         res.render('resume', {});
