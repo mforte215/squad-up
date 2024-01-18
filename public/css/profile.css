@@ -8,9 +8,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .profile-image {
-    max-width: 400px;
+    max-width: 600px;
     border-radius: 8px;
 }
