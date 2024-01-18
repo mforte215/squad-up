@@ -28,7 +28,9 @@ function buildResume(req) {
         doc
             .fontSize(25)
             .fillColor('black')
-            .text('Contact Info', 10, 95)
+            .text('Contact Info', 10, 95, {
+              underline: true
+            })
         doc
           .fontSize(15)
           .fillColor('black')
@@ -36,16 +38,38 @@ function buildResume(req) {
             `Phone: ${req.body.phone}`, 
             `Email: ${req.body.email}`,
             `Address: ${req.body.location}`,
-            ], 20, 120,)
+            ], 20, 125,)
         
         doc
           .fontSize(25)
           .fillColor('black')
-          .text('Education', 10, 190)
+          .text('Education', 10, 190, {
+            underline: true
+          })
         doc
-          .text(`${req.body.school}`, 230,300)
-          .text(`${req.body.jobOne}`, 230,330)
-          .text(`${req.body.jobTime}`, 230, 350)
+          .fontSize(15)
+          .font('Helvetica-Oblique')
+          .text(`${req.body.school}`, 20, 220)
+          
+        doc
+          .fontSize(25)
+          .font('Helvetica')
+          .fillColor('black')
+          .text('Experience', 10, 255, {
+            underline: true
+          })
+        doc
+          .fontSize(15)
+          .text(`${req.body.jobOne}: ${req.body.jobTime}`, 20, 285)
+        doc
+        .fontSize(15)
+        .fillColor('black')
+        .list([
+          `${req.body.respoOne}`, 
+          `${req.body.respoTwo}`,
+          `${req.body.respoThree}`,
+          `${req.body.respoFour}`
+          ], 20, 315,)
 
         // Apply some transforms and render an SVG path with the 'even-odd' fill rule
         doc

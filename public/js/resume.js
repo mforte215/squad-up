@@ -8,11 +8,15 @@ let githubEl = document.querySelector('#github')
 let schoolEl = document.querySelector('#schoolOne')
 let jobOneEl = document.querySelector('#jobOne')
 let timeEl = document.querySelector('#atJob')
+let respoOneEl = document.querySelector('#respoOne')
+let respoTwoEl = document.querySelector('#respoTwo')
+let respoThreeEl = document.querySelector('#respoThree')
+let respoFourEl = document.querySelector('#respoFour')
 const send = document.querySelector("#send");
 let pdfButtonEl = document.querySelector('#pdfButton')
 
 send.addEventListener('click', async function(e) {
-    
+  e.preventDefault()
     let resumeForm = {
         firstName: firstNameEl.value.trim(),
         lastName: lastnameEl.value.trim(),
@@ -23,6 +27,10 @@ send.addEventListener('click', async function(e) {
         school: schoolEl.value.trim(),
         jobOne: jobOneEl.value.trim(),
         jobTime: timeEl.value.trim(),
+        respoOne: respoOneEl.value.trim(),
+        respoTwo: respoTwoEl.value.trim(),
+        respoThree: respoThreeEl.value.trim(),
+        respoFour: respoFourEl.value.trim(),
     }
     let stringThis = JSON.stringify(resumeForm)
     console.log(resumeForm.email)
@@ -36,7 +44,7 @@ send.addEventListener('click', async function(e) {
       })
     const buildObject = await buildIt.json()
     console.log(buildObject)
-    e.preventDefault()
+  
     pdfButton()
   })
 
