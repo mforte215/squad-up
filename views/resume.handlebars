@@ -7,8 +7,12 @@
                     <label class= "text-decoration-underline text-black" for="phone">Enter a phone number:</label><br>
                     <small class= "fst-italic">Format: 123-459-6278</small> <br><br>
                     <label class= "text-decoration-underline text-black" for="email">Enter your email:</label> <br><br>
-                    <label class= "text-decoration-underline text-black">Current City/State:</label> <br><br>
-                    
+                    <label class= "mb-2 text-decoration-underline text-black">Current Address:</label> <br><br>
+                    <label class= "mb-4 text-decoration-underline text-black">Personal GitHub Link:</label> <br>
+                    <label class= "mb-4 text-decoration-underline text-black">School/University:</label> <br>
+                    <label class= "mb-4 text-decoration-underline text-black">Most Recent Job Title:</label> <br> 
+                    <label class= "text-decoration-underline text-black">Time in role:</label> 
+                   
                 </div>
                 <div class="col-lg-8 col-sm-6 col-5">
                     <input required class= "border-black rounded-2" id='firstName' type= "text" placeholder="John"> <br><br>
@@ -16,6 +20,10 @@
                     <input required class= "border-black rounded-2" type="tel" id="phone" name="phone" placeholder="123-452-6728" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" > <br><br>
                     <input required class= "border-black rounded-2" type="email" id="email" name="email" placeholder="myEmail@email.com"> <br><br>
                     <input required class= "border-black rounded-2" type="text" id="location" placeholder="Philadelphia, PA"> <br><br>
+                    <input required class= "border-black rounded-2" type="url" id="github"> <br><br>
+                    <input required class= "border-black rounded-2" id='schoolOne' type= "text" placeholder="Ex: University of Pennsylvania"> <br><br>
+                    <input required class= "border-black rounded-2" id='jobOne' type= "text" placeholder="Ex: Senior Developer"> <br><br>
+                    <input required class= "border-black rounded-2" id='atJob' type= "text" placeholder="Ex: 2022-Present"> <br><br>
                     <button class="btn btn-secondary btn-lg" id="send">Submit</button>
                 </div>
             </div>
@@ -25,3 +33,14 @@
         
     </main>
     <script src="./js/resume.js"></script>
+
+{{!-- Questions
+* Job History
+    * Company (Length of time worked). Repeat 3 Times
+    * Job Title
+    * Top 4 Responsibilites 
+        * Bullet 1
+        * Bullet 2
+        * Bullet 3
+        * Bullet 4
+* Soft Skills --}}

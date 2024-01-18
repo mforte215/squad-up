@@ -14,28 +14,38 @@ function buildResume(req) {
         doc.pipe(fs.createWriteStream('./public/userResume.pdf'));
 
         doc
-        .fontSize(25)
-        .text(`${req.body.firstName} ${req.body.lastName}`, 230, 50);
+          .fontSize(35)
+          .text(`${req.body.firstName} ${req.body.lastName}`, 0, 30);
 
         doc
-        .fontSize(10)
-        .text(`${req.body.phone}`, 230, 80)
+          .fontSize(15)
+          .fillColor('blue')
+          .text('GitHub Page', 10, 70, {
+            link: `${req.body.github}`,
+            underline: true
+            }
+            );
+        doc
+            .fontSize(25)
+            .fillColor('black')
+            .text('Contact Info', 10, 95)
+        doc
+          .fontSize(15)
+          .fillColor('black')
+          .list([
+            `Phone: ${req.body.phone}`, 
+            `Email: ${req.body.email}`,
+            `Address: ${req.body.location}`,
+            ], 20, 120,)
         
         doc
-        .fillColor('blue')
-        .text('Here is a link!', 100, 200)
-        .underline(100, 200, 160, 27, { color: '#0000FF' })
-        .link(100, 100, 160, 27, 'http://google.com/');
-
-        
-        // Add an image, constrain it to a given size, and center it vertically and horizontally
-        // doc.image('./Public/Image_test/Coffee-Cat.png', {
-        // fit: [250, 300],
-        // align: 'center',
-        // valign: 'center'
-        // });
-        // Add another page
-
+          .fontSize(25)
+          .fillColor('black')
+          .text('Education', 10, 190)
+        doc
+          .text(`${req.body.school}`, 230,300)
+          .text(`${req.body.jobOne}`, 230,330)
+          .text(`${req.body.jobTime}`, 230, 350)
 
         // Apply some transforms and render an SVG path with the 'even-odd' fill rule
         doc
@@ -69,7 +79,7 @@ router.post('/', async (req, res) => {
     let doc = await buildResume(req)
     let docBlob = new Blob([doc], {type:'application/pdf'})
     console.log(docBlob)
-    res.status(200).json('DoYouWork')
+    res.status(200).json(req.body.email)
     //From express trying to send data back to client, then need
     //JS client side to return it
     //NEED TO PROMPT DOWNLOAD FROM THE CLIENT
